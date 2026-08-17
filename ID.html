@@ -1,9 +1,25 @@
-[C.tmp]
-version = 1.0
-type    = "universum-tmp"
+<!DOCTYPE html>
+<html>
+<body style="background:#000;color:#0f0;font-family:Consolas;padding:20px">
 
-tmp.name = "C.tmp"
-tmp.role = "ursache"
-tmp.mode = ["swap","handover","leave","vector"]
-tmp.output = "C.tmp.final"
-tmp.state  = "active"
+<div id="id">I</div>
+
+<script src="ID_UNIT.js"></script>
+<script src="s3.js"></script>
+
+<script>
+    // IDy löst WHIRL aus
+    const pulse = ID_UNIT.pulse();
+
+    if (pulse === "start-whirl") {
+        // WHIRL_START wird ausgeführt
+        const pool = {};
+        const msg = WHIRL_START(pool);
+
+        console.log(msg);
+        console.log("CAUSE-Level:", pool.causeLevel);
+    }
+</script>
+
+</body>
+</html>
