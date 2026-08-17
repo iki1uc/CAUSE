@@ -1,0 +1,59 @@
+window.SUITE = {
+
+    // Zustand
+    state: {
+        pos: { x: 0, y: 0, z: 0 },
+        vel: { x: 0, y: 0, z: 0 },
+        mass: 80,          // kg
+        density: 1025,     // Meerwasser
+        drag: 0.9,         // Widerstand
+        sciFi: false       // Sci-Fi-Modus
+    },
+
+    // Physik (REAL)
+    physics(dt) {
+        const s = this.state;
+
+        // Drag-Kraft (real)
+        const dragForce = s.drag * (s.vel.x**2 + s.vel.y**2 + s.vel.z**2);
+
+        // Bewegung
+        s.vel.x -= dragForce * dt;
+        s.vel.y -= dragForce * dt;
+        s.vel.z -= dragForce * dt;
+
+        s.pos.x += s.vel.x * dt;
+        s.pos.y += s.vel.y * dt;
+        s.pos.z += s.vel.z * dt;
+    },
+
+    // Sci-Fi Physik (irrreal, aber mathematisch sauber)
+    sciFiPhysics(dt) {
+        const s = this.state;
+
+        // Kavitation: Widerstand ≈ 0
+        s.drag = 0.01;
+
+        // Hydrodynamischer Tunnel
+        s.vel.x *= 1.05;
+        s.vel.y *= 1.05;
+        s.vel.z *= 1.05;
+
+        // Negative Masse (mathematisch möglich)
+        s.mass = -s.mass;
+
+        // Warp-Kanal (Zeitgradient)
+        s.pos.x += s.vel.x * dt * 4;
+        s.pos.y += s.vel.y * dt * 4;
+        s.pos.z += s.vel.z * dt * 4;
+    },
+
+    // SUITE‑Loop
+    run(dt) {
+        if (this.state.sciFi) {
+            this.sciFiPhysics(dt);
+        } else {
+            this.physics(dt);
+        }
+    }
+};
