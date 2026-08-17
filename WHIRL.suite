@@ -1,1 +1,40 @@
+// WHIRL.suite
+// AllroundAll BodyHead Script FounderGate Continuum HomeRoom
+
+window.WHIRL_SUITE = {
+
+    name: "HOME-ROOM",
+
+    // Founder-Gate: Startpunkt
+    gate() {
+        return "IDy-Gate-Open";
+    },
+
+    // Slide / Wait / Score / Wette – deine 4 Bewegungen
+    slide(x) { return x + " → slide"; },
+    wait(x) { return x + " → wait"; },
+    score(x) { return x + " → score"; },
+    wette(x) { return x + " → wette"; },
+
+    // Continuum: verbindet alles
+    continuum(pool) {
+        const base = "CAUSE=" + pool.causeLevel;
+        return {
+            head: "IDy",
+            body: "CAUSE",
+            room: this.name,
+            gate: this.gate(),
+            slide: this.slide(base),
+            wait: this.wait(base),
+            score: this.score(base),
+            wette: this.wette(base)
+        };
+    },
+
+    // WHIRL-Start: alle normal → aber WHIRL startet bei 3
+    start(pool) {
+        pool.causeLevel = 3;
+        return this.continuum(pool);
+    }
+};
 
